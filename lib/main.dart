@@ -19,12 +19,27 @@ class MainApp extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
         body: ListView(
-          children: const [
-            Task(taskName: 'Sample Task', imageUrl: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
-            Task(taskName: 'Learning Flutter', imageUrl: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
-            Task(taskName: 'Testing', imageUrl: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
-            Task(taskName: 'Practing', imageUrl: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
-            Task(taskName: 'Here we are', imageUrl: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+          children: [
+            Task(
+                taskName: 'Sample Task',
+                imageUrl:
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+            Task(
+                taskName: 'Learning Flutter',
+                imageUrl:
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+            Task(
+                taskName: 'Testing',
+                imageUrl:
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+            Task(
+                taskName: 'Practing',
+                imageUrl:
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+            Task(
+                taskName: 'Here we are',
+                imageUrl:
+                    'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -45,8 +60,10 @@ class MainApp extends StatelessWidget {
 class Task extends StatefulWidget {
   final String taskName;
   final String imageUrl;
+  int difficultyRating = 0;
 
-  const Task({required this.taskName, required this.imageUrl, Key? key}) : super(key: key);
+  Task({required this.taskName, required this.imageUrl, Key? key})
+      : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -78,11 +95,36 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: Image.network(widget.imageUrl, fit: BoxFit.cover),
                     ),
-                    SizedBox(
-                      width: 200,
-                      child: Text(widget.taskName,
-                          style: const TextStyle(
-                              fontSize: 18, overflow: TextOverflow.ellipsis)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Text(widget.taskName,
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  overflow: TextOverflow.ellipsis)),
+                        ),
+                        Row(
+                          children: List.generate(
+                              5,
+                              (index) => GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        widget.difficultyRating = index + 1;
+                                      });
+                                    },
+                                    child: Icon(
+                                      index < widget.difficultyRating
+                                          ? Icons.star
+                                          : Icons.star_border,
+                                      size: 15,
+                                      color: Colors.blue,
+                                    ),
+                                  )),
+                        )
+                      ],
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -90,8 +132,12 @@ class _TaskState extends State<Task> {
                           level++;
                         });
                       },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateColor.resolveWith(
+                              (states) => Colors.blue)),
                       child: const Icon(
                         Icons.arrow_drop_up,
+                        color: Colors.white,
                       ),
                     )
                   ],
@@ -106,7 +152,11 @@ class _TaskState extends State<Task> {
                       width: 200,
                       child: LinearProgressIndicator(
                         color: Colors.white,
-                        value: level/10,
+                        value: (widget.difficultyRating != 0 &&
+                                !level.isNaN &&
+                                !level.isInfinite)
+                            ? ((level / widget.difficultyRating) / 10)
+                            : 0.0,
                       ),
                     ),
                   ),
