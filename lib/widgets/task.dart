@@ -24,7 +24,10 @@ class _TaskState extends State<Task> {
       child: Stack(
         children: [
           Container(
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(10),
+            ),
             height: 140,
           ),
           Column(
@@ -58,12 +61,13 @@ class _TaskState extends State<Task> {
       color: Colors.black26,
       width: 72,
       height: 100,
-      child: Image.network(widget.imageUrl, fit: BoxFit.cover),
+      child: Image.asset(widget.imageUrl, fit: BoxFit.cover),
     );
   }
 
   Widget _buildTaskInfo() {
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,

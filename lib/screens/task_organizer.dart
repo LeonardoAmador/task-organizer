@@ -28,28 +28,23 @@ class _TaskOrganizerState extends State<TaskOrganizer> {
           children: [
             Task(
               taskName: 'Sample Task',
-              imageUrl:
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              imageUrl: 'assets/images/img01.png',
             ),
             Task(
               taskName: 'Learning Flutter',
-              imageUrl:
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              imageUrl: 'assets/images/img01.png',
             ),
             Task(
               taskName: 'Testing',
-              imageUrl:
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              imageUrl: 'assets/images/img01.png',
             ),
             Task(
               taskName: 'Practicing',
-              imageUrl:
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              imageUrl: 'assets/images/img01.png',
             ),
             Task(
               taskName: 'Here we are',
-              imageUrl:
-                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              imageUrl: 'assets/images/img01.png',
             ),
           ],
         ),
