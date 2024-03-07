@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_organizer/screens/form_screen.dart';
 import 'package:task_organizer/widgets/task.dart';
 
 class TaskOrganizer extends StatefulWidget {
@@ -20,6 +21,15 @@ class _TaskOrganizerState extends State<TaskOrganizer> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isOpacity = !isOpacity;
+              });
+            },
+            icon: const Icon(Icons.remove_red_eye, color: Colors.white,))
+        ],
       ),
       body: AnimatedOpacity(
         opacity: isOpacity ? 1 : 0,
@@ -51,13 +61,14 @@ class _TaskOrganizerState extends State<TaskOrganizer> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            isOpacity = !isOpacity;
-          });
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => const FormScreen())
+          );
         },
         backgroundColor: Colors.blue,
         child: const Icon(
-          Icons.remove_red_eye,
+          Icons.add,
           color: Colors.white,
         ),
       ),
