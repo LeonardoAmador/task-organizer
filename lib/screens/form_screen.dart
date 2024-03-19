@@ -7,10 +7,21 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController difficultyController = TextEditingController();
-  TextEditingController imageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController difficultyController = TextEditingController();
+  final TextEditingController imageController = TextEditingController();
+
+  String getTaskName() => nameController.text;
+  String getImageUrl() => imageController.text;
+  int getDifficulty() => int.tryParse(difficultyController.text) ?? 0;
+
+  void clearForm() {
+    nameController.clear();
+    difficultyController.clear();
+    imageController.clear();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -176,6 +187,8 @@ class _FormScreenState extends State<FormScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text('Saving new task...')));
+                              
+                              clearForm();
                             }
                           },
                           style: ButtonStyle(
@@ -195,5 +208,7 @@ class _FormScreenState extends State<FormScreen> {
         ),
       ),
     );
+
+
   }
 }
