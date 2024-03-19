@@ -189,6 +189,8 @@ class _FormScreenState extends State<FormScreen> {
                                       content: Text('Saving new task...')));
                               
                               clearForm();
+                              
+                              Navigator.pop(context);
                             }
                           },
                           style: ButtonStyle(
