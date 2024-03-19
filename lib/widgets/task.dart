@@ -7,7 +7,7 @@ class Task extends StatefulWidget {
   final String imageUrl;
   int difficultyRating = 0;
 
-  Task({required this.taskName, required this.imageUrl, Key? key})
+  Task({required this.taskName, required this.imageUrl, required this.difficultyRating, Key? key})
       : super(key: key);
 
   @override
