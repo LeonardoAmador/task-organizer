@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:task_organizer/widgets/task.dart';
 
 class TaskInherited extends InheritedWidget {
-  const TaskInherited({
+  TaskInherited({
     Key? key,
     required Widget child,
   }) : super(key: key, child: child);
+
+  final List<Task> taskList = [];
+
+  void addNewTask(String taskName, String imageUrl, int difficultyRating) {
+    taskList.add(Task(taskName: taskName, imageUrl: imageUrl, difficultyRating: difficultyRating));
+  }
 
   static TaskInherited of(BuildContext context) {
     final TaskInherited? result = context.dependOnInheritedWidgetOfExactType();
