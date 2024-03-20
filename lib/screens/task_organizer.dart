@@ -3,7 +3,7 @@ import 'package:task_organizer/screens/form_screen.dart';
 import 'package:task_organizer/widgets/task.dart';
 
 class TaskOrganizer extends StatefulWidget {
-  const TaskOrganizer({Key? key}) : super(key: key);
+  TaskOrganizer({Key? key}) : super(key: key);
 
   @override
   State<TaskOrganizer> createState() => _TaskOrganizerState();
@@ -35,28 +35,7 @@ class _TaskOrganizerState extends State<TaskOrganizer> {
         opacity: isOpacity ? 1 : 0,
         duration: const Duration(milliseconds: 800),
         child: ListView(
-          children: [
-            Task(
-              taskName: 'Sample Task',
-              imageUrl: 'assets/images/img01.png',
-            ),
-            Task(
-              taskName: 'Learning Flutter',
-              imageUrl: 'assets/images/img01.png',
-            ),
-            Task(
-              taskName: 'Testing',
-              imageUrl: 'assets/images/img01.png',
-            ),
-            Task(
-              taskName: 'Practicing',
-              imageUrl: 'assets/images/img01.png',
-            ),
-            Task(
-              taskName: 'Here we are',
-              imageUrl: 'assets/images/img01.png',
-            ),
-          ],
+          children: [],
         ),
       ),
       floatingActionButton: FloatingActionButton(
