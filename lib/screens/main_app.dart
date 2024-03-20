@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_organizer/data/task_inherited.dart';
 import 'package:task_organizer/screens/task_organizer.dart';
 
 class MainApp extends StatelessWidget {
@@ -6,8 +7,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TaskOrganizer(),
+    return  MaterialApp(
+      home: TaskInherited(child: const TaskOrganizer())
     );
   }
 }
