@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+import '../data/task_inherited.dart';
 
+class FormScreen extends StatefulWidget {
+  final BuildContext taskContext;
+
+  const FormScreen({ super.key, required this.taskContext});
+  
   @override
   State<FormScreen> createState() => _FormScreenState();
 }
@@ -21,7 +25,7 @@ class _FormScreenState extends State<FormScreen> {
     difficultyController.clear();
     imageController.clear();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -184,13 +188,13 @@ class _FormScreenState extends State<FormScreen> {
                       child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Saving new task...')));
+                              TaskInherited.of(widget.taskContext).addNewTask(getTaskName(), getImageUrl(), getDifficulty());
                               
-                              clearForm();
-                              
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Saving new task...')));
+                            
                               Navigator.pop(context);
+
+                              clearForm();
                             }
                           },
                           style: ButtonStyle(
