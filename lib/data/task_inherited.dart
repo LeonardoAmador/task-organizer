@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:task_organizer/widgets/task.dart';
 
@@ -7,7 +8,7 @@ class TaskInherited extends InheritedWidget {
     required Widget child,
   }) : super(key: key, child: child);
 
-  final List<Task> taskList = [];
+  final taskList = <Task>[];
 
   void addNewTask(String taskName, String imageUrl, int difficultyRating) {
     taskList.add(Task(taskName: taskName, imageUrl: imageUrl, difficultyRating: difficultyRating));
@@ -21,7 +22,7 @@ class TaskInherited extends InheritedWidget {
   }
   
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    throw UnimplementedError();
+  bool updateShouldNotify(TaskInherited oldWidget) {
+    return !listEquals(oldWidget.taskList, taskList);
   }
 }
