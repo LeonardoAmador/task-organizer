@@ -4,8 +4,8 @@ import '../data/task_inherited.dart';
 class FormScreen extends StatefulWidget {
   final BuildContext taskContext;
 
-  const FormScreen({ super.key, required this.taskContext});
-  
+  const FormScreen({super.key, required this.taskContext});
+
   @override
   State<FormScreen> createState() => _FormScreenState();
 }
@@ -26,27 +26,33 @@ class _FormScreenState extends State<FormScreen> {
     imageController.clear();
   }
 
+  Widget _buildAppBar() {
+    return AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      title: const Text(
+        'New Task',
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.blue,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
-          title: const Text(
-            'New Task',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.blue,
-        ),
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(56), 
+            child: _buildAppBar()),
         body: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -188,10 +194,15 @@ class _FormScreenState extends State<FormScreen> {
                       child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              TaskInherited.of(widget.taskContext).addNewTask(getTaskName(), getImageUrl(), getDifficulty());
-                              
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Saving new task...')));
-                            
+                              TaskInherited.of(widget.taskContext).addNewTask(
+                                  getTaskName(),
+                                  getImageUrl(),
+                                  getDifficulty());
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Saving new task...')));
+
                               Navigator.pop(context);
 
                               _clearForm();
