@@ -20,7 +20,7 @@ class _FormScreenState extends State<FormScreen> {
   String getImageUrl() => imageController.text;
   int getDifficulty() => int.tryParse(difficultyController.text) ?? 0;
 
-  void clearForm() {
+  void _clearForm() {
     nameController.clear();
     difficultyController.clear();
     imageController.clear();
@@ -194,7 +194,7 @@ class _FormScreenState extends State<FormScreen> {
                             
                               Navigator.pop(context);
 
-                              clearForm();
+                              _clearForm();
                             }
                           },
                           style: ButtonStyle(
