@@ -160,7 +160,7 @@ class _FormScreenState extends State<FormScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 100,
+                      height: 200,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -168,7 +168,7 @@ class _FormScreenState extends State<FormScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(imageController.text,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             errorBuilder: (context, error, stackTrace) {
                           return const Center(
                             child: Icon(
