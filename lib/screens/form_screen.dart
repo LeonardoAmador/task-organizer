@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../data/task_inherited.dart';
 
@@ -87,6 +89,22 @@ class _FormScreenState extends State<FormScreen> {
     );
   }
 
+  String? _validateInput(String? value, String fieldName, int? minValue, int? maxValue) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the $fieldName';
+    }
+
+    if (minValue != null && maxValue != null) {
+      int parsedValue = int.tryParse(value) ?? 0;
+
+      if (parsedValue < minValue || parsedValue > maxValue) {
+        return 'Please enter a $fieldName between $minValue and $maxValue';
+      }
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -112,39 +130,21 @@ class _FormScreenState extends State<FormScreen> {
                     labelText: 'Task Description *',
                     icon: Icons.task,
                     keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Insert the task name';
-                      }
-                      return null;
-                    },
+                    validator: (value) => _validateInput(value, 'task name', null, null)
                   ),
                   _buildTextFormField(
                     controller: difficultyController,
                     labelText: 'Task Difficulty *',
                     icon: Icons.stars,
                     keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          int.parse(value) > 5 ||
-                          int.parse(value) < 1) {
-                        return 'Insert a difficulty between 1 and 5';
-                      }
-                      return null;
-                    },
+                    validator: (value) => _validateInput(value, 'difficulty', 1, 5),
                   ),
                   _buildTextFormField(
                     controller: imageController,
                     labelText: 'Task Image *',
                     icon: Icons.image,
                     keyboardType: TextInputType.url,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Insert an image URL!';
-                      }
-                      return null;
-                    },
+                    validator: (value) => _validateInput(value, 'image URL', null, null),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
