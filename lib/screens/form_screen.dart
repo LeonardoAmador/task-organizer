@@ -20,6 +20,14 @@ class _FormScreenState extends State<FormScreen> {
   String getImageUrl() => imageController.text;
   int getDifficulty() => int.tryParse(difficultyController.text) ?? 0;
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    difficultyController.dispose();
+    imageController.dispose();
+    super.dispose();
+  }
+
   void _clearForm() {
     nameController.clear();
     difficultyController.clear();
