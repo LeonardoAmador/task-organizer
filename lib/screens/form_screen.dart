@@ -45,14 +45,47 @@ class _FormScreenState extends State<FormScreen> {
     );
   }
 
+  Widget _buildTextFormField({
+      required TextEditingController controller,
+      required String labelText,
+      IconData? icon,
+      TextInputType keyboardType = TextInputType.text,
+      String? Function(String?)? validator
+    }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        validator: validator,
+        controller: controller,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          icon: Icon(
+            icon,
+            color: Colors.blue,
+          ),
+          labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.blue),
+          fillColor: Colors.blue.withOpacity(0.1),
+          filled: true,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+        ),
+        cursorColor: Colors.blue,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Scaffold(
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(56), 
-            child: _buildAppBar()),
+            preferredSize: const Size.fromHeight(56), child: _buildAppBar()),
         body: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -66,102 +99,44 @@ class _FormScreenState extends State<FormScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (String? value) {
-                        if (value != null && value.isEmpty) {
-                          return 'Insert the task name';
-                        }
-
-                        return null;
-                      },
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        icon: const Icon(
-                          Icons.task,
-                          color: Colors.blue,
-                        ),
-                        labelText: 'Task Description *',
-                        labelStyle: const TextStyle(color: Colors.blue),
-                        fillColor: Colors.blue.withOpacity(0.1),
-                        filled: true,
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                      ),
-                      cursorColor: Colors.blue,
-                    ),
+                  _buildTextFormField(
+                    controller: nameController,
+                    labelText: 'Task Description *',
+                    icon: Icons.task,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Insert the task name';
+                      }
+                      return null;
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty ||
-                            int.parse(value) > 5 ||
-                            int.parse(value) < 1) {
-                          return 'Insert a difficulty between 1 and 5';
-                        }
-
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      controller: difficultyController,
-                      decoration: InputDecoration(
-                        icon: const Icon(
-                          Icons.stars,
-                          color: Colors.blue,
-                        ),
-                        labelText: 'Task Difficulty *',
-                        labelStyle: const TextStyle(color: Colors.blue),
-                        fillColor: Colors.blue.withOpacity(0.1),
-                        filled: true,
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                      ),
-                      cursorColor: Colors.blue,
-                    ),
+                  _buildTextFormField(
+                    controller: difficultyController,
+                    labelText: 'Task Difficulty *',
+                    icon: Icons.stars,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          int.parse(value) > 5 ||
+                          int.parse(value) < 1) {
+                        return 'Insert a difficulty between 1 and 5';
+                      }
+                      return null;
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Insert an image URL!';
-                        }
-
-                        return null;
-                      },
-                      keyboardType: TextInputType.url,
-                      onChanged: (text) {
-                        setState(() {});
-                      },
-                      controller: imageController,
-                      decoration: InputDecoration(
-                        icon: const Icon(
-                          Icons.image,
-                          color: Colors.blue,
-                        ),
-                        labelText: 'Task Image *',
-                        labelStyle: const TextStyle(color: Colors.blue),
-                        fillColor: Colors.blue.withOpacity(0.1),
-                        filled: true,
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                      ),
-                      cursorColor: Colors.blue,
-                    ),
+                  _buildTextFormField(
+                    controller: imageController,
+                    labelText: 'Task Image *',
+                    icon: Icons.image,
+                    keyboardType: TextInputType.url,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Insert an image URL!';
+                      }
+                      return null;
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -169,21 +144,24 @@ class _FormScreenState extends State<FormScreen> {
                       height: 200,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(width: 2, color: Colors.blue)),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(width: 2, color: Colors.blue),
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(imageController.text,
-                            fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: Icon(
-                              Icons.no_photography_outlined,
-                              color: Colors.grey,
-                              size: 42,
-                            ),
-                          );
-                        }),
+                        child: Image.network(
+                          imageController.text,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Center(
+                              child: Icon(
+                                Icons.no_photography_outlined,
+                                color: Colors.grey,
+                                size: 42,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
