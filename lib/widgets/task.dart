@@ -7,7 +7,11 @@ class Task extends StatefulWidget {
   final String imageUrl;
   int difficultyRating = 0;
 
-  Task({ required this.taskName, required this.imageUrl, required this.difficultyRating, Key? key })
+  Task(
+      {required this.taskName,
+      required this.imageUrl,
+      required this.difficultyRating,
+      Key? key})
       : super(key: key);
 
   @override
@@ -41,6 +45,14 @@ class _TaskState extends State<Task> {
     );
   }
 
+  bool assetOrNetwork() {
+    if (widget.imageUrl.contains('http')) {
+      return false;
+    }
+
+    return true;
+  }
+
   Widget _buildTaskDetails() {
     return Container(
       color: Colors.white,
@@ -61,7 +73,9 @@ class _TaskState extends State<Task> {
       color: Colors.black26,
       width: 72,
       height: 100,
-      child: Image.asset(widget.imageUrl, fit: BoxFit.cover),
+      child: assetOrNetwork()
+          ? Image.asset(widget.imageUrl, fit: BoxFit.cover)
+          : Image.network(widget.imageUrl, fit: BoxFit.cover),
     );
   }
 
