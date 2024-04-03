@@ -34,16 +34,12 @@ class _InitialScreenState extends State<InitialScreen> {
           ),
         ],
       ),
-      body: AnimatedOpacity(
-        opacity: isOpacity ? 1 : 0,
-        duration: const Duration(milliseconds: 800),
-        child: ListView.builder(
+      body: ListView.builder(
           itemCount: TaskInherited.of(context).taskList.length,
           itemBuilder: (context, index) {
             return TaskInherited.of(context).taskList[index];
           },
         ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
