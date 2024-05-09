@@ -63,17 +63,7 @@ class _TaskState extends State<Task> {
         children: [
           _buildTaskImage(),
           _buildTaskInfo(),
-          Column(
-            children: [
-              IconButton(
-                onPressed: () {
-                  TaskDao().delete(widget.taskName);
-                },
-                icon: const Icon(Icons.delete),
-              ),
-              _buildDifficultyRating(),
-            ],
-          )
+          _buildDifficultyRating(),
         ],
       ),
     );
@@ -124,6 +114,28 @@ class _TaskState extends State<Task> {
         setState(() {
           level++;
         });
+      },
+      onLongPress: () {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Delete Task'),
+            content: const Text('Are you sure? '),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  TaskDao().delete(widget.taskName);
+                  Navigator.pop(context, 'OK');
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
       },
       style: ButtonStyle(
         backgroundColor:
