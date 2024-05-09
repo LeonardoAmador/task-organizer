@@ -22,6 +22,13 @@ class _FormScreenState extends State<FormScreen> {
   int getDifficulty() => int.tryParse(difficultyController.text) ?? 0;
 
   @override
+  void initState() {
+    super.initState();
+
+    imageController.addListener(updateImage);
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     difficultyController.dispose();
@@ -33,6 +40,12 @@ class _FormScreenState extends State<FormScreen> {
     nameController.clear();
     difficultyController.clear();
     imageController.clear();
+  }
+
+  void updateImage() {
+    setState(() {
+
+    });
   }
 
   Widget _buildAppBar() {

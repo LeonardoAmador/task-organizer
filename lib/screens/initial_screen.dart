@@ -12,7 +12,7 @@ class InitialScreen extends StatefulWidget {
 
 class _InitialScreenState extends State<InitialScreen> {
   bool isOpacity = true;
-
+  
   void reloadScreen() {
     setState(() {
       isOpacity = !isOpacity;
